@@ -2,27 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_message"
+        android:id="@+id/menu_focus"
         android:enabled="true"
         android:icon="@drawable/ic_launcher_foreground"
-        android:title="IM"
+        android:title="关注点"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menu_f"
+        android:id="@+id/menu_bubble"
         android:enabled="true"
         android:icon="@drawable/ic_launcher_background"
-        android:title="通讯录"
+        android:title="会话泡"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menu_c"
+        android:id="@+id/menu_domain"
         android:enabled="true"
         android:icon="@drawable/ic_launcher_background"
-        android:title="发现"
+        android:title="域"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menu_contacts"
+        android:id="@+id/menu_setting"
         android:enabled="true"
         android:icon="@drawable/ic_launcher_background"
-        android:title="我"
+        android:title="设置"
         app:showAsAction="ifRoom" />
 </menu>

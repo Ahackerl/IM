@@ -10,4 +10,17 @@
     <color name="color_common">#E45242</color>
     <color name="color_focused">@color/color_common</color>
     <color name="color_un_focused">#222222</color>
+
+    <color name="jet">#222222</color>
+    <color name="oil">#333333</color>
+    <color name="monsoon">#777777</color>
+    <color name="jumbo">#888888</color>
+    <color name="aluminum">#999999</color>
+    <color name="base">#AAAAAA</color>
+    <color name="iron">#CCCCCC</color>
+
+    <color name="primary">#0099ee</color>
+    <color name="primary_dark">#0066ff</color>
+    <color name="primary_darker">#0066ff</color>
+    <color name="accent">#FFFFFF</color>
 </resources>

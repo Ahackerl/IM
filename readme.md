@@ -1,6 +1,6 @@
 <h4 align="center">
     <p>
-        <b>初版方案</b> |
+        <b>DEMO方案，后续扩展方案参考此方案</b> |
         <a href="https://github.com/Ahackerl/IM/blob/master/readme2.md">第二版方案</a>
     <p>
 </h4>
@@ -8,7 +8,7 @@
 # 项目简介
 
 > * IMApp 目录为安卓端，使用Android Studio开发。
-> * IMServer 目录为后端，后端使用springboot mysql netty实现。
+> * netty-server 目录为后端，后端使用springboot mysql netty实现。
 > * IMWeb 目录为后台管理前端。
 
 # 项目目的
@@ -22,14 +22,13 @@
 **注册**
 
 - 验证码（可以先不加）
-- SpringBoot + MyBatis（MySQL或MongoDB）实现用户数据持久化
+- SpringBoot + Netty  MongoDB实现用户数据持久化
 
-**登陆**（上线）——这块儿逻辑为初步试探，没有设计性（仅供学习体验Netty所用，更优逻辑设计还需探索讨论）
+**登陆**
 
 - 向后台请求验证
 
-- 验证成功之后，获取自身IP地址并同步后台数据（将本次上线的IP地址持久化）
-- 同时，用本次IP地址与后端Netty服务器建立连接（将该客户端注入到ChannelGroup）
+- 验证成功之后，获取用户id并通过Netty上传到后端，后端维护hashMap，用于锁定持久化的用户和Netty channel
 - Netty建立连接成功之后，修改用户数据——登陆状态
 
 **退出**
@@ -43,8 +42,6 @@
   > - 后台检测到连接断开之后，会remove掉该客户端对应的channel
   >
   > - 会修改后台数据——用户登陆状态
-  > - 会修改后台数据——将用户本次登录所使用的IP制空（这点在逻辑上很重要）
-  >   - 如果同一台设备先后使用不同的账户，但他们获取的IP很可能是一样的，这样就无法在Netty端作区分了，会造成非常严重的逻辑错误——用户区分错误，信息转发错误等。
 
 ## 用户模块
 

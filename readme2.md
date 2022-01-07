@@ -1,6 +1,6 @@
 <h4 align="center">
     <p>
-        <a href="https://github.com/Ahackerl/IM/edit/master/readme.md">初版方案</a> |
+        <a href="https://github.com/Ahackerl/IM">初版方案</a> |
         <b>第二版方案</b> 
     <p>
 </h4>

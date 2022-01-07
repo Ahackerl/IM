@@ -1,7 +1,7 @@
 <h4 align="center">
     <p>
         <b>初版方案</b> |
-        <a href="https://github.com/Ahackerl/IM/blob/master/readme2.md">第二版方案</a> |
+        <a href="https://github.com/Ahackerl/IM/blob/master/readme2.md">第二版方案</a>
     <p>
 </h4>
 

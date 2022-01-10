@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.im.imapp.netty.NettyCore;
 import com.im.imapp.utils.elf.CopyElfs;
 
 import java.io.BufferedReader;
@@ -19,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        new NettyCore().registerNetty();
 
     }
 

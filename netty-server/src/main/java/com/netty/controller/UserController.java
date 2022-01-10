@@ -67,12 +67,6 @@ public class UserController {
         if (!user.getPassword().equals(password)) {
             return R.error(400, "passwordError");
         }
-        //修改此用户的状态
-        long l = userService.updateOnlineStatusByUserName(userName, 1);
-        System.out.println("状态修改："+l);
-        if (l == 0){
-            return R.error(400, "状态修改失败");
-        }
         return R.data(user);
     }
 

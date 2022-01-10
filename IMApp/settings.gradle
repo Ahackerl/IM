@@ -8,3 +8,4 @@ dependencyResolutionManagement {
 }
 rootProject.name = "IMApp"
 include ':app'
+include ':fishaq'

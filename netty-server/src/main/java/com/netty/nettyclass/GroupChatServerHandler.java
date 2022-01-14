@@ -51,7 +51,9 @@ public class GroupChatServerHandler implements ChannelInboundHandler {
         System.out.println("注销事件发生");
         Channel channel = ctx.channel();
         //通过ID定位 用户
-        User user = userService.findUserByID(channels.getKey(channel));
+        String key = channels.getKey(channel);
+        User user = userService.findUserByID(key);
+        channels.remove(key);
         //数据库更改状态为下线
         userService.updateOnlineStatusByUserName(user.getName(), 0);
         System.out.println("用户名：" + user.getName() + " 下线了~");
@@ -85,6 +87,7 @@ public class GroupChatServerHandler implements ChannelInboundHandler {
 
 
             if("login".equals(type)){ //首次进入
+
                 channels.put(jsonObject.getString("userid"),ctx.channel());
 
                 //通过ID定位 用户

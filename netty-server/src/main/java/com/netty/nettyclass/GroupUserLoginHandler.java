@@ -1,36 +1,31 @@
 package com.netty.nettyclass;
 
-import com.google.gson.Gson;
-import com.netty.bean.Chat;
 import com.netty.bean.User;
 import com.netty.service.impl.ChatService;
 import com.netty.service.impl.UserService;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandler;
-import io.netty.channel.group.ChannelGroup;
-import io.netty.channel.group.DefaultChannelGroup;
-import io.netty.util.concurrent.GlobalEventExecutor;
+import io.netty.util.Attribute;
+import io.netty.util.AttributeKey;
+import io.netty.util.AttributeMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.text.SimpleDateFormat;
 
-
-public class GroupChatServerHandler implements ChannelInboundHandler {
+public class GroupUserLoginHandler implements ChannelInboundHandler {
 
     private final UserService userService;
-    private final ChatService chatService;
 
-    public GroupChatServerHandler(UserService userService, ChatService chatService) {
+    public GroupUserLoginHandler(UserService userService) {
         this.userService = userService;
-        this.chatService = chatService;
+
     }
 
     //使用一个hashmap 管理  channel--userId
-    public static DoubleMap<String, Channel> channels = new DoubleMap<>();
+    public static DoubleMap<User, Channel> channels = new DoubleMap<>();
 
     @Override
     public void handlerAdded(ChannelHandlerContext ctx) throws Exception {}
@@ -51,9 +46,8 @@ public class GroupChatServerHandler implements ChannelInboundHandler {
         System.out.println("注销事件发生");
         Channel channel = ctx.channel();
         //通过ID定位 用户
-        String key = channels.getKey(channel);
-        User user = userService.findUserByID(key);
-        channels.remove(key);
+        User user = channels.getKey(channel);
+        channels.remove(user);
         //数据库更改状态为下线
         userService.updateOnlineStatusByUserName(user.getName(), 0);
         System.out.println("用户名：" + user.getName() + " 下线了~");
@@ -88,10 +82,12 @@ public class GroupChatServerHandler implements ChannelInboundHandler {
 
             if("login".equals(type)){ //首次进入
 
-                channels.put(jsonObject.getString("userid"),ctx.channel());
-
                 //通过ID定位 用户
                 User user = userService.findUserByID(jsonObject.getString("userid"));
+
+                //user 绑定 channel
+                channels.put(user,ctx.channel());
+
                 //数据库更改状态为上线
                 userService.updateOnlineStatusByUserName(user.getName(), 1);
                 System.out.println("用户名：" + user.getName() + " 上线了~");

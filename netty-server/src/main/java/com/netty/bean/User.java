@@ -3,6 +3,8 @@ package com.netty.bean;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.Objects;
+
 @Document(collection = "user")
 public class User {
 
@@ -13,6 +15,19 @@ public class User {
     private String nickName;
     private String IP;
     private int isOnline;//是否在线
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return userId.equals(user.userId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(userId);
+    }
 
     public String getNickName() {
         return nickName;

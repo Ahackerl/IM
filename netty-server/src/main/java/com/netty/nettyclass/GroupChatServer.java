@@ -9,16 +9,15 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.serialization.ClassResolvers;
 import io.netty.handler.codec.serialization.ObjectDecoder;
-import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.codec.string.StringDecoder;
 import io.netty.handler.codec.string.StringEncoder;
 import io.netty.util.CharsetUtil;
 
 public class GroupChatServer {
 
-    private int port; //监听端口
-    private UserService userService;
-    private ChatService chatService;
+    private final int port; //监听端口
+    private final UserService userService;
+    private final ChatService chatService;
 
 
     public GroupChatServer(int port, UserService userService, ChatService chatService) {
@@ -50,7 +49,8 @@ public class GroupChatServer {
                             ch.pipeline().addLast("encoder",new StringEncoder(CharsetUtil.UTF_8));
                             ch.pipeline().addLast("decoder",new StringDecoder(CharsetUtil.UTF_8));
                             ch.pipeline().addFirst(new ObjectDecoder(Integer.MAX_VALUE, ClassResolvers.weakCachingConcurrentResolver(null))); // 最大长度
-                            pipeline.addFirst(new GroupChatServerHandler(userService,chatService));
+                            pipeline.addFirst(new GroupUserLoginHandler(userService));
+                            pipeline.addFirst(new GroupChatHandler(chatService));
 
                         }
                     });
